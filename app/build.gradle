@@ -1,0 +1,57 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion '27.0.1'
+    dataBinding.enabled = true
+    defaultConfig {
+        applicationId "com.gokemicro.rtspplayer"
+        minSdkVersion 14
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+configurations.all {
+    resolutionStrategy {
+
+        force 'com.google.code.gson:gson:2.8.1'
+        force 'com.squareup.retrofit2:retrofit:2.3.0'
+        force 'com.squareup.retrofit2:converter-gson:2.3.0'
+        force 'com.squareup.okhttp3:okhttp:3.9.0'
+        // fail eagerly on version conflict (includes transitive dependencies)
+        // e.g. multiple different versions of the same dependency (group and name are equal)
+        failOnVersionConflict()
+
+        // prefer modules that are part of this build (multi-project or composite build) over external modules
+        preferProjectModules()
+    }
+}
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:27.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.squareup.okhttp3:okhttp:3.9.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation'com.google.code.gson:gson:2.8.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+    implementation 'com.android.support:design:27.0.0'
+    implementation 'idv.neo.restful:restfulengine:0.0.0'
+    implementation 'com.gokemicro.api:restfulapi:0.0.0'
+    implementation 'com.github.bumptech.glide:glide:4.3.0'
+    implementation 'com.gokemicro.api:apidefine:0.0.0'
+    implementation 'org.videolan.libvlc:libvlc:2.5.5udp'
+}
